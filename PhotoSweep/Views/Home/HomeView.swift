@@ -62,7 +62,11 @@ struct HomeView: View {
     private var photoGrid: some View {
         Group {
             if photos.isEmpty {
-                ContentUnavailableView("No photos found", systemImage: "photo.on.rectangle", description: Text("We didn't find any photos in your iCloud library."))
+                ContentUnavailableView(
+                    "No photos found",
+                    systemImage: "photo.on.rectangle",
+                    description: Text("We didn't find any photos in your iCloud library.")
+                )
             } else {
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 4) {
@@ -80,7 +84,10 @@ struct HomeView: View {
         ContentUnavailableView {
             Label("Photo access needed", systemImage: "lock.fill")
         } description: {
-            Text("PhotoSweep needs access to your photo library to scan for duplicates. We never delete anything — access is read-only until you choose an action.")
+            Text("""
+            PhotoSweep needs access to your photo library to scan for duplicates. \
+            We never delete anything — access is read-only until you choose an action.
+            """)
         } actions: {
             Button("Open Settings") {
                 if let url = URL(string: UIApplication.openSettingsURLString) {

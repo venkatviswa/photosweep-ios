@@ -60,9 +60,9 @@ struct UnifiedPhotoTests {
     @Test func duplicateGroupRelationshipPersists() throws {
         let context = try makeContext()
         let sessionId = UUID()
-        let a = UnifiedPhoto(source: .icloud, scanSessionId: sessionId, fileSize: 5_000)
-        let b = UnifiedPhoto(source: .googlePhotos, scanSessionId: sessionId, fileSize: 3_000)
-        let group = DuplicateGroup(scanSessionId: sessionId, matchType: .exact, matchConfidence: 1.0, photos: [a, b])
+        let first = UnifiedPhoto(source: .icloud, scanSessionId: sessionId, fileSize: 5_000)
+        let second = UnifiedPhoto(source: .googlePhotos, scanSessionId: sessionId, fileSize: 3_000)
+        let group = DuplicateGroup(scanSessionId: sessionId, matchType: .exact, matchConfidence: 1.0, photos: [first, second])
         context.insert(group)
         try context.save()
 
