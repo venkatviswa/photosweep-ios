@@ -49,9 +49,9 @@ struct UnifiedPhotoTests {
         context.insert(UnifiedPhoto(source: .icloud, scanSessionId: sessionId))
         try context.save()
 
-        let icloudValue = PhotoSource.icloud.rawValue
+        let target = PhotoSource.icloud
         let descriptor = FetchDescriptor<UnifiedPhoto>(
-            predicate: #Predicate { $0.source.rawValue == icloudValue }
+            predicate: #Predicate { $0.source == target }
         )
         let icloudPhotos = try context.fetch(descriptor)
         #expect(icloudPhotos.count == 2)
