@@ -17,7 +17,7 @@ struct PhotoSweepApp: App {
 
     init() {
         do {
-            modelContainer = try ModelContainer(for: PhotoSweepSchema.models)
+            modelContainer = try ModelContainer(for: Schema(PhotoSweepSchema.models))
         } catch {
             // A failure here means the on-disk store is unreadable/incompatible.
             // There is no meaningful recovery at launch, so crash loudly with context.
