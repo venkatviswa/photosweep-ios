@@ -41,7 +41,9 @@ struct UnifiedPhotoTests {
         #expect(photo.fileSize == 0)
     }
 
-    @Test func predicateFiltersBySource() throws {
+    @Test func sourceEnumRoundTripsThroughStore() throws {
+        // SwiftData can't filter on a custom RawRepresentable enum in a #Predicate,
+        // so verify the enum persists correctly by fetching all and filtering in Swift.
         let context = try makeContext()
         let sessionId = UUID()
         context.insert(UnifiedPhoto(source: .icloud, scanSessionId: sessionId))
@@ -49,12 +51,26 @@ struct UnifiedPhotoTests {
         context.insert(UnifiedPhoto(source: .icloud, scanSessionId: sessionId))
         try context.save()
 
-        let target = PhotoSource.icloud
+        let all = try context.fetch(FetchDescriptor<UnifiedPhoto>())
+        #expect(all.count == 3)
+        #expect(all.filter { $0.source == .icloud }.count == 2)
+        #expect(all.filter { $0.source == .googlePhotos }.count == 1)
+    }
+
+    @Test func fetchDescriptorPredicateOnPrimitive() throws {
+        let context = try makeContext()
+        let sessionId = UUID()
+        context.insert(UnifiedPhoto(source: .icloud, scanSessionId: sessionId, fileSize: 1_000))
+        context.insert(UnifiedPhoto(source: .icloud, scanSessionId: sessionId, fileSize: 9_000))
+        try context.save()
+
+        let threshold: Int64 = 5_000
         let descriptor = FetchDescriptor<UnifiedPhoto>(
-            predicate: #Predicate { $0.source == target }
+            predicate: #Predicate { $0.fileSize > threshold }
         )
-        let icloudPhotos = try context.fetch(descriptor)
-        #expect(icloudPhotos.count == 2)
+        let large = try context.fetch(descriptor)
+        #expect(large.count == 1)
+        #expect(large.first?.fileSize == 9_000)
     }
 
     @Test func duplicateGroupRelationshipPersists() throws {
