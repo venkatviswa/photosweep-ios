@@ -1,0 +1,66 @@
+# .swiftlint.yml — PhotoSweep
+
+# Rules
+disabled_rules:
+  - trailing_whitespace        # Too noisy during active development
+  - todo                       # We use TODO/FIXME as reminders
+
+opt_in_rules:
+  - closure_spacing
+  - empty_count
+  - explicit_init
+  - fatal_error_message
+  - first_where
+  - force_unwrapping           # Critical: no force unwraps in production code
+  - implicitly_unwrapped_optional
+  - overridden_super_call
+  - private_outlet
+  - redundant_nil_coalescing
+  - sorted_first_last
+  - unowned_variable_capture
+  - vertical_whitespace_closing_braces
+
+# Thresholds
+line_length:
+  warning: 140
+  error: 200
+
+file_length:
+  warning: 500
+  error: 1000
+
+type_body_length:
+  warning: 300
+  error: 500
+
+function_body_length:
+  warning: 50
+  error: 100
+
+# Exclude
+excluded:
+  - DerivedData
+  - build
+  - Pods
+  - .build
+  - PhotoSweepTests/Fixtures   # Test fixture files
+
+# Naming
+type_name:
+  min_length: 3
+  max_length: 50
+
+identifier_name:
+  min_length: 2
+  max_length: 50
+  excluded:
+    - id
+    - x
+    - y
+    - i
+    - w
+    - h
+    - ok
+
+# Reporter
+reporter: "xcode"

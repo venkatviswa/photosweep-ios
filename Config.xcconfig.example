@@ -1,0 +1,23 @@
+// Config.xcconfig
+// 
+// INSTRUCTIONS:
+// 1. Copy this file to Config.xcconfig (which is git-ignored)
+// 2. Fill in your actual values
+// 3. NEVER commit Config.xcconfig to git
+//
+// In Xcode: Project → Info → Configurations → set Debug and Release to use Config
+
+// Google OAuth
+GOOGLE_CLIENT_ID = YOUR_CLIENT_ID.apps.googleusercontent.com
+GOOGLE_REVERSED_CLIENT_ID = com.googleusercontent.apps.YOUR_CLIENT_ID
+
+// App Identity
+BUNDLE_ID = com.yourname.photosweep
+APP_NAME = PhotoSweep
+
+// Analytics & Monitoring
+TELEMETRY_APP_ID = YOUR_TELEMETRY_DECK_APP_ID
+SENTRY_DSN = https://YOUR_SENTRY_DSN
+
+// StoreKit
+DEEP_CLEAN_PRODUCT_ID = com.yourname.photosweep.deepclean

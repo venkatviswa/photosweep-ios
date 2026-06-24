@@ -1,0 +1,27 @@
+# Fastfile — PhotoSweep
+#
+# Minimal lanes for Phase 1. Signing, App Store Connect API keys, and match
+# configuration are added in Phase 5 (PS-056) when TestFlight upload is wired up.
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Run unit and UI tests on the simulator"
+  lane :test do
+    run_tests(
+      project: "PhotoSweep.xcodeproj",
+      scheme: "PhotoSweep",
+      destination: "platform=iOS Simulator,name=iPhone 16,OS=latest"
+    )
+  end
+
+  desc "Build and upload a beta to TestFlight (configured in Phase 5)"
+  lane :beta do
+    UI.user_error!("TestFlight upload is configured in Phase 5 (PS-056).")
+  end
+
+  desc "Build and submit to the App Store (configured in Phase 6)"
+  lane :release do
+    UI.user_error!("App Store submission is configured in Phase 6 (PS-059).")
+  end
+end
