@@ -51,7 +51,7 @@ final class GooglePhotosViewModel {
                 throw GooglePhotosError.invalidResponse
             }
             state = .waitingForSelection
-            UIApplication.shared.open(pickerURL)
+            _ = await UIApplication.shared.open(pickerURL)
             let ready = try await api.waitForSelection(session: session)
             let items = try await api.listPickedItems(sessionId: ready.id)
             try await importItems(items, into: context)
