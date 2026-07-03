@@ -41,7 +41,13 @@ struct PhotoThumbnail: View {
     }
 
     private func loadThumbnail(side: CGFloat) async {
-        guard image == nil, let localIdentifier = photo.localIdentifier else { return }
+        guard image == nil else { return }
+        // Google photos carry a stored thumbnail; iCloud photos load via PhotoKit.
+        if let data = photo.thumbnailData {
+            image = UIImage(data: data)
+            return
+        }
+        guard let localIdentifier = photo.localIdentifier else { return }
         let pixelSide = side * 3 // approximate retina scale; thumbnails only
         image = await PhotoThumbnailLoader().thumbnail(
             for: localIdentifier,

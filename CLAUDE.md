@@ -254,8 +254,10 @@ PhotoSweep/
 - Photo Library access is all-or-nothing starting iOS 14+ (no "selected photos" mode for a scanning app — we need full access).
 
 ### Google Photos API
-- OAuth 2.0 with `photoslibrary.readonly` scope.
-- Rate limit: ~10,000 requests/day for free tier. Batch `mediaItems.search` calls.
+- OAuth 2.0 with `photospicker.mediaitems.readonly` (Picker API). Library-wide read scopes were
+  removed by Google on March 31, 2025 — there is no API that enumerates a user's whole library.
+  Users pick photos via a Picker session (`sessions.create` → open `pickerUri` → poll → `mediaItems.list`).
+- Picker quota: 100,000 requests/min per project. Clean up sessions with `sessions.delete` after import.
 - No delete API. Period. "Guided Self-Delete" means showing the user which photos to delete and linking them to the Google Photos app.
 - Thumbnails via `baseUrl` expire. Re-fetch `baseUrl` for display; don't cache permanently.
 - Album listing is paginated. Always handle `nextPageToken`.

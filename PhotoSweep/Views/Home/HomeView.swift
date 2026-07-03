@@ -14,6 +14,7 @@ struct HomeView: View {
     @Query(sort: \UnifiedPhoto.creationDate, order: .reverse) private var photos: [UnifiedPhoto]
 
     @State private var viewModel = HomeViewModel()
+    @State private var googleViewModel = GooglePhotosViewModel()
 
     private let columns = [GridItem(.adaptive(minimum: 100), spacing: 4)]
 
@@ -55,7 +56,11 @@ struct HomeView: View {
             ContentUnavailableView("Something went wrong", systemImage: "exclamationmark.triangle", description: Text(message))
 
         case .ready:
-            photoGrid
+            VStack(spacing: 8) {
+                GooglePhotosSection(viewModel: googleViewModel)
+                    .padding(.horizontal)
+                photoGrid
+            }
         }
     }
 

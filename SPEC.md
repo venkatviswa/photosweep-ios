@@ -52,7 +52,11 @@ Home Screen
 - User can connect only iCloud, only Google, or both. App works with either.
 - Show explicit "We never delete your photos" trust message before each connection.
 - If user denies photo access, show a clear explanation of why it's needed with a button to open Settings.
-- Google OAuth must request `photoslibrary.readonly` scope only. Never `photoslibrary` (which includes write).
+- ~~Google OAuth must request `photoslibrary.readonly` scope only.~~
+  **Update (July 2026):** Google removed all library-wide read scopes on March 31, 2025. The app uses the
+  **Picker API** (`photospicker.mediaitems.readonly`): the user picks which Google photos to scan, inside
+  the Google Photos app or web picker. We can never see photos the user doesn't explicitly pick — position
+  this as a privacy feature.
 
 ### 2.2 Scanning
 
@@ -278,7 +282,7 @@ class CloudAccount {
 
 ```
 iCloud: PHFetchResult<PHAsset> → extract metadata → store as UnifiedPhoto
-Google: GET /v1/mediaItems (paginated) → extract metadata → store as UnifiedPhoto
+Google: Picker session → user picks → GET /v1/mediaItems?sessionId (paginated) → extract metadata → store as UnifiedPhoto
 ```
 
 - Fetch metadata only. Don't download full images yet.
