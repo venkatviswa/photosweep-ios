@@ -228,16 +228,17 @@ final class GoogleAuthService: NSObject {
         return Data(pairs.sorted().joined(separator: "&").utf8)
     }
 
-    private struct TokenResponse: Decodable {
-        let accessToken: String
-        let expiresIn: Double
-        let refreshToken: String?
+}
 
-        enum CodingKeys: String, CodingKey {
-            case accessToken = "access_token"
-            case expiresIn = "expires_in"
-            case refreshToken = "refresh_token"
-        }
+private struct TokenResponse: Decodable {
+    let accessToken: String
+    let expiresIn: Double
+    let refreshToken: String?
+
+    enum CodingKeys: String, CodingKey {
+        case accessToken = "access_token"
+        case expiresIn = "expires_in"
+        case refreshToken = "refresh_token"
     }
 }
 

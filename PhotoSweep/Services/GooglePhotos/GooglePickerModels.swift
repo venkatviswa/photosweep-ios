@@ -34,15 +34,15 @@ struct PickedMediaItem: Decodable, Sendable {
         let baseUrl: String?
         let mimeType: String?
         let filename: String?
-        let mediaFileMetadata: Metadata?
-
-        struct Metadata: Decodable, Sendable {
-            let width: Int?
-            let height: Int?
-            let cameraMake: String?
-            let cameraModel: String?
-        }
+        let mediaFileMetadata: PickedMediaFileMetadata?
     }
+}
+
+struct PickedMediaFileMetadata: Decodable, Sendable {
+    let width: Int?
+    let height: Int?
+    let cameraMake: String?
+    let cameraModel: String?
 }
 
 struct PickedMediaItemsPage: Decodable, Sendable {
