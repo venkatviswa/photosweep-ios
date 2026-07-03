@@ -227,7 +227,6 @@ final class GoogleAuthService: NSObject {
         }
         return Data(pairs.sorted().joined(separator: "&").utf8)
     }
-
 }
 
 private struct TokenResponse: Decodable {
