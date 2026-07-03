@@ -40,4 +40,15 @@ struct DuplicateGroupTests {
         let group = DuplicateGroup(scanSessionId: UUID(), matchType: .exact, matchConfidence: 1.0)
         #expect(group.potentialSavings == 0)
     }
+
+    @Test func potentialSavingsWithEqualSizesKeepsExactlyOne() {
+        // Three identical 2,000-byte copies: keep one, save the other two.
+        let group = DuplicateGroup(
+            scanSessionId: UUID(),
+            matchType: .exact,
+            matchConfidence: 1.0,
+            photos: [photo(size: 2_000), photo(size: 2_000), photo(size: 2_000)]
+        )
+        #expect(group.potentialSavings == 4_000)
+    }
 }
